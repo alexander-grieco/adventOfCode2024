@@ -65,11 +65,7 @@ func calcSimilarity(l1 []int, l2 map[int]int) int {
 }
 
 func mapInsert(num int, m map[int]int) {
-	if _, ok := m[num]; ok {
-		m[num]++
-	} else {
-		m[num] = 1
-	}
+	m[num]++
 }
 
 func binarySearch(list []int, num, start, end int) int {
