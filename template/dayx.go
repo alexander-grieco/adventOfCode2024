@@ -4,9 +4,8 @@ import (
 	_ "embed"
 )
 
-// switch to testInput.txt to use test input
+// switch to input.txt to use actual input
 //
-//go:embed input.txt
 //go:embed testInput.txt
 var input string
 
@@ -15,10 +14,12 @@ func main() {
 	// part2()
 }
 
-func part1() {
+// /////////////////////////////////////// Part 2 ////////////////////////////////////////
+func part2() {
 
 }
 
-func part2() {
+// /////////////////////////////////////// Part 1 ////////////////////////////////////////
+func part1() {
 
 }
