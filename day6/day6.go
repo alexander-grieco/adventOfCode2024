@@ -2,7 +2,6 @@ package main
 
 import (
 	_ "embed"
-	"errors"
 	"fmt"
 	"image"
 	"strings"
@@ -52,14 +51,11 @@ func part2() {
 		}
 	}
 
-	points := []image.Point{}
+	count := 0
 	for _, pt := range search {
-		ret, err := moveGrid2(grid, cur, delta, dir, pt)
-		if err == nil {
-			points = append(points, ret)
-		}
+		count += moveGrid2(grid, cur, delta, dir, pt)
 	}
-	fmt.Println(len(points))
+	fmt.Println(count)
 }
 
 type loop struct {
@@ -67,7 +63,7 @@ type loop struct {
 	d int
 }
 
-func moveGrid2(grid map[image.Point]rune, cur image.Point, delta []image.Point, dir int, pt image.Point) (image.Point, error) {
+func moveGrid2(grid map[image.Point]rune, cur image.Point, delta []image.Point, dir int, pt image.Point) int {
 	grid[pt] = rune('#')
 	defer func() {
 		grid[pt] = rune('.')
@@ -75,25 +71,19 @@ func moveGrid2(grid map[image.Point]rune, cur image.Point, delta []image.Point, 
 
 	visited := map[loop]int{}
 	for {
-		if _, ok := visited[loop{
-			cur,
-			dir,
-		}]; ok {
-			return pt, nil
+		if _, ok := visited[loop{cur, dir}]; ok {
+			return 1
 		}
 		r, ok := grid[cur]
 		if !ok {
-			return image.Point{}, errors.New("Nope")
+			return 0
 		}
 		switch r {
 		case rune('#'):
 			cur = cur.Sub(delta[dir])
 			dir = (dir + 1) % 4
 		default:
-			visited[loop{
-				cur,
-				dir,
-			}] += 1
+			visited[loop{cur, dir}] = 1
 		}
 		cur = cur.Add(delta[dir])
 	}
