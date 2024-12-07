@@ -13,11 +13,10 @@ import (
 //go:embed input.txt
 var input string
 
-// /////////////////////////////////////// Part 1 ////////////////////////////////////////
 func main() {
+	// Ingest input
 	testVals, nums := []int{}, [][]int{}
 	ops_p1 := []string{"+", "*"}
-	ops_p2 := []string{"+", "*", "||"}
 	for _, l := range strings.Split(strings.TrimSpace(string(input)), "\n") {
 		vals := strings.Split(l, ": ")
 		testVals = append(testVals, func() int {
@@ -38,6 +37,7 @@ func main() {
 
 	// Problem 2
 	count = 0
+	ops_p2 := []string{"+", "*", "||"}
 	for idx, tv := range testVals {
 		num := calcCalibrations(tv, nums[idx], ops_p2)
 		count += num
